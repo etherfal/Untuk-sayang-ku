@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 2 Months Ratuku 🫶🤍</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Diphylleia&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Montserrat', sans-serif; background-[#070b19]; color: white; }
+    .font-serif-elegant { font-family: 'Diphylleia', serif; font-style: italic; }
+
+    /* Efek Glassmorphism */
+    .glass-box {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Karakter Emoji */
+    #helper-character {
+      position: fixed;
+      font-size: 2.8rem;
+      z-index: 100;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+    #helper-character:active { cursor: grabbing; }
+
+    @keyframes floatAnimation {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(3deg); }
+    }
+    .floating { animation: floatAnimation 3s ease-in-out infinite; }
+
+    .char-jump { animation: charJumpAnimation 0.4s ease-in-out; }
+    @keyframes charJumpAnimation {
+      0%, 100% { transform: scale(1); }
+      50% { transform: translateY(-20px) scale(1.15); }
+    }
+
+    .char-heart {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1.2rem;
+      animation: heartPop 0.8s ease-out forwards;
+      z-index: 110;
+    }
+    @keyframes heartPop {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 1; }
+      100% { transform: translate(var(--mx), var(--my)) scale(1.2); opacity: 0; }
+    }
+
+    .custom-scroll::-webkit-scrollbar { width: 5px; }
+    .custom-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+    .custom-scroll::-webkit-scrollbar-thumb { background: rgba(245, 158, 11, 0.4); border-radius: 10px; }
+  </style>
+</head>
+<body class="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+
+  <div class="absolute inset-0 bg-gradient-to-b from-[#070b19] via-[#0b1528] to-[#1c1a3a] z-0"></div>
+  <div class="absolute inset-0 opacity-30 bg-[radial-gradient(white_1px,transparent_0)] bg-[size:30px_30px] z-0"></div>
+
+  <div id="helper-character" class="floating" style="left: 50px; top: 70vh;">🥰</div>
+
+  <audio id="bgMusic" loop>
+    <source src="assets/music/lagu_romantis.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- SLIDE 1: PEMBUKA -->
+  <div id="page1" class="z-30 text-center space-y-8 animate-fade-in transition-opacity duration-1000">
+    <div class="text-6xl mb-4 drop-shadow-lg">🌻</div>
+    <h1 class="font-serif-elegant text-4xl md:text-5xl text-amber-200">Hai ratuku...</h1>
+    <button onclick="triggerCharacter(this, () => startJourney())" class="px-8 py-4 bg-gradient-to-r from-amber-400 to-yellow-600 text-slate-900 rounded-full font-bold shadow-xl hover:scale-105 active:scale-95 transition-all">
+      Hay sayang🥰 Tolong di buka ya
+    </button>
+  </div>
+
+  <!-- SLIDE 2: SURAT DENGAN EFEK 3 KATA & AUTO-SCROLL -->
+  <div id="page2" class="hidden z-30 w-full max-w-lg glass-box rounded-3xl p-8 text-white space-y-6">
+    <h2 class="font-serif-elegant text-2xl text-amber-300 text-center border-b border-white/10 pb-4">Happy 2 months, ratuku! 🫶🤍🌻</h2>
+    <div id="letter-container" class="h-[350px] overflow-y-auto custom-scroll pr-2">
+      <div id="letter-content" class="text-sm md:text-base leading-relaxed space-y-4 italic whitespace-pre-line"></div>
+    </div>
+    <div class="text-center pt-4 opacity-0 transition-opacity duration-500" id="btn-next-2">
+        <button onclick="triggerCharacter(this, () => nextPage(2, 3))" class="px-6 py-2 bg-rose-500 rounded-full font-semibold text-sm shadow-lg hover:scale-105 transition-all">Lanjut Sayang ❤️</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: INTERAKSI KECIL -->
+  <div id="page3" class="hidden z-30 text-center space-y-8">
+    <h2 class="font-serif-elegant text-3xl text-amber-200">Ada yang mau lewat... 🏃‍♂️</h2>
+    <p class="text-gray-300">Coba kejar emojinya kalau bisa!</p>
+    <button onclick="triggerCharacter(this, () => nextPage(3, 4))" class="px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-full font-bold shadow-xl">
+      hehe sayang, tolong dibuka yaa
+    </button>
+  </div>
+
+  <!-- SLIDE 4: GALERI CHAT MEMORIES + DELAY TOMBOL 3 DETIK -->
+  <div id="page4" class="hidden z-30 w-full max-w-md space-y-6 text-center">
+    <h2 class="font-serif-elegant text-3xl text-amber-300">Memories 📸</h2>
+    
+    <p class="text-amber-200 text-sm italic bg-white/5 p-3 rounded-xl border border-amber-500/20 backdrop-blur-sm">
+      "Hehe sayang izin yaa aku simpan beberapa chat kita buat di kenang 🥺✨"
+    </p>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-white p-2 pb-6 shadow-xl rotate-[-3deg] transform hover:rotate-0 transition-all duration-500">
+        <img src="assets/images/foto1.jpg" class="w-full h-32 object-cover rounded" alt="Foto 1">
+      </div>
+      <div class="bg-white p-2 pb-6 shadow-xl rotate-[5deg] transform hover:rotate-0 transition-all duration-500">
+        <img src="assets/images/foto2.jpg" class="w-full h-32 object-cover rounded" alt="Foto 2">
+      </div>
+      <div class="bg-white p-2 pb-6 shadow-xl rotate-[-2deg] transform hover:rotate-0 transition-all duration-500">
+        <img src="assets/images/foto3.jpg" class="w-full h-32 object-cover rounded" alt="Foto 3">
+      </div>
+      <div class="bg-white p-2 pb-6 shadow-xl rotate-[4deg] transform hover:rotate-0 transition-all duration-500">
+        <img src="assets/images/foto4.jpg" class="w-full h-32 object-cover rounded" alt="Foto 4">
+      </div>
+    </div>
+
+    <div id="btn-container-4" class="opacity-0 transition-opacity duration-700 pointer-events-none">
+      <button onclick="triggerCharacter(this, () => nextPage(4, 5))" class="mt-4 px-8 py-3 bg-amber-500 text-slate-900 rounded-full font-bold shadow-lg hover:scale-105 transition-all">Terakhir... 💌</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: UCAPAN TERIMA KASIH + DELAY TOMBOL WA 3 DETIK -->
+  <div id="page5" class="hidden z-30 text-center space-y-6 glass-box p-8 rounded-3xl border-none max-w-md w-full">
+    <h2 class="font-serif-elegant text-3xl text-rose-300">Terima Kasih Telah Hadir 🤍</h2>
+    
+    <div class="text-gray-200 text-sm leading-relaxed space-y-3 bg-slate-950/40 p-5 rounded-2xl border border-white/10 text-left italic">
+      <p>Terima kasih ya udah hadir di hidup aku, membawa warna baru yang sebelumnya gak pernah aku rasa.</p>
+      <p>Makasih udah jadi tempat pulang paling nyaman, meskipun untuk saat ini kita cuma bisa saling dengar lewat suara dan sapa lewat layar.</p>
+      <p class="text-amber-200 font-semibold">Kehadiranmu itu cukup, bahkan lebih dari cukup buat bikin hariku jauh lebih berarti. Tetap sama aku terus ya, ratuku. 🌻✨</p>
+    </div>
+
+    <div id="btn-container-5" class="opacity-0 transition-opacity duration-700 pointer-events-none pt-2">
+      <a href="https://wa.me/6282310811414?text=Happy+2+months+juga+sayang!+Makasih+ya+buat+semuanya+🥺❤️" target="_blank" class="inline-block px-8 py-3.5 bg-emerald-500 text-white rounded-full font-bold text-base shadow-emerald-500/20 shadow-2xl animate-pulse">
+          Kirim Pesan ke Aku 💖
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const char = document.getElementById('helper-character');
+    const emojis = ['😍', '🥰', '😘', '😝', '🥳', '😗', '😉'];
+    
+    let isDragging = false;
+    let isInterrupted = false;
+    let roamTimeout;
+    let offsetX, offsetY;
+
+    // --- TEKS SURAT SLIDE 2 ---
+    const letterText = `Happy 2 months, ratuku! 🫶🤍🌻
+
+Gak kerasa ya udah dua bulan aja kita jalan bareng. Buat orang lain mungkin dua bulan itu singkat, tapi buat kita yang LDR, perjuangannya lumayan juga ya! Dari yang tadinya dua kepala beda isi, sekarang lagi belajar jalan searah—meskipun jarak sering banget bikin langkah kita kerasa dua kali lebih panjang.
+
+Makasih banyak ya udah milih buat tinggal, bertahan, dan gak kapok jalan sama aku selama 2 bulan ini. Walaupun hubungan kita sejauh ini diwarnai tawa, kangen yang cuma bisa mentok di layar, sampai drama salah paham dikit-dikit (hehe), aku tetep bersyukur banget kita masih di sini dan masih saling milih.
+
+Maaf ya kalau selama dua bulan ini aku masih banyak minusnya. Kadang caraku ngomong suka bikin harimu kurang enak, atau ada kelakuanku yang bikin gemes/kesel. Tapi tenang, proses upgrade diri jadi pasangan yang lebih baik masih terus berjalan kok! 😂
+
+Jujur, kadang nyesek juga belum bisa hadir langsung tiap kamu butuh. Mau ngasih sesuatu secara langsung pun aku masih bingung caranya gimana. Tapi untuk saat ini, yang bisa aku kirim lewat udara adalah waktu, perhatian, doa, dan hadir semampuku buat kamu.
+
+Semoga bertambahnya bulan gak cuma nambah angka anniversary kita, tapi juga nambah sabar, nambah ngerti, dan makin jago ngelewatin jarak ini. Makasih udah jadi bagian dari dua bulan yang indah ini, ratuku.
+
+Happy 2 months, sayangku! Tetap jadi dirimu ya, dan izinkan aku tetap ada di sisimu. 🥰✨`;
+
+    // --- TEKS KETIK 3 KATA SEKALIGUS + AUTO SCROLL ---
+    function typeWriterChunk(text, fnCallback) {
+      const container = document.getElementById("letter-container");
+      const content = document.getElementById("letter-content");
+      
+      const words = text.split(" ");
+      let index = 0;
+      content.innerHTML = "";
+
+      const interval = setInterval(() => {
+        if (index < words.length) {
+          const chunk = words.slice(index, index + 3).join(" ") + " ";
+          content.innerHTML += chunk;
+          index += 3;
+          container.scrollTop = container.scrollHeight;
+        } else {
+          clearInterval(interval);
+          if (typeof fnCallback === 'function') {
+            setTimeout(fnCallback, 1000); 
+          }
+        }
+      }, 160);
+    }
+
+    // --- LOGIKA EMOJI INTERAKTIF ---
+    function getRandomEmoji() { return emojis[Math.floor(Math.random() * emojis.length)]; }
+
+    function startRandomRoaming() {
+      if (isInterrupted || isDragging || !document.getElementById('page5').classList.contains('hidden')) return;
+      const targetX = Math.random() * (window.innerWidth - 100) + 50;
+      const targetY = Math.random() * (window.innerHeight - 100) + 50;
+      char.style.transition = 'all 3s cubic-bezier(0.4, 0, 0.2, 1)';
+      char.style.left = `${targetX}px`;
+      char.style.top = `${targetY}px`;
+      char.style.transform = `rotate(${(Math.random()-0.5)*40}deg)`;
+      clearTimeout(roamTimeout);
+      roamTimeout = setTimeout(startRandomRoaming, 3500);
+    }
+
+    char.addEventListener('pointerdown', (e) => {
+      isInterrupted = true; isDragging = true;
+      offsetX = e.clientX - char.getBoundingClientRect().left;
+      offsetY = e.clientY - char.getBoundingClientRect().top;
+      char.style.transition = 'transform 0.2s';
+      char.style.transform = 'scale(0.6)';
+      char.innerHTML = '😣';
+      showBubble("lepaskan aku!");
+      char.setPointerCapture(e.pointerId);
+    });
+
+    char.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      char.style.left = `${e.clientX - offsetX}px`;
+      char.style.top = `${e.clientY - offsetY}px`;
+    });
+
+    char.addEventListener('pointerup', (e) => {
+      isDragging = false;
+      char.innerHTML = '😜';
+      char.style.transition = 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+      char.style.transform = 'scale(1)';
+      const escapeX = Math.random() * (window.innerWidth - 100) + 50;
+      const escapeY = Math.random() * (window.innerHeight - 100) + 50;
+      char.style.left = `${escapeX}px`;
+      char.style.top = `${escapeY}px`;
+      setTimeout(() => { 
+        isInterrupted = false; 
+        char.innerHTML = getRandomEmoji();
+        startRandomRoaming(); 
+      }, 1000);
+    });
+
+    function showBubble(text) {
+      const old = document.getElementById('char-bubble'); if(old) old.remove();
+      const b = document.createElement('div');
+      b.id = 'char-bubble'; b.innerText = text;
+      b.style.cssText = "position:absolute;bottom:110%;left:50%;transform:translateX(-50%);background:white;color:black;padding:5px 10px;border-radius:10px;font-size:12px;font-weight:bold;white-space:nowrap;z-index:120;";
+      char.appendChild(b);
+      setTimeout(() => b.remove(), 2000);
+    }
+
+    function triggerCharacter(btn, callback) {
+      isInterrupted = true;
+      const rect = btn.getBoundingClientRect();
+      char.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1.2)';
+      char.style.left = `${rect.left + rect.width/2 - 20}px`;
+      char.style.top = `${rect.top + rect.height/2 - 20}px`;
+      char.innerHTML = '👉';
+      setTimeout(() => {
+        char.classList.add('char-jump');
+        showBubble("uhuy!");
+        createHearts(rect.left + rect.width/2, rect.top);
+      }, 500);
+      setTimeout(() => {
+        char.classList.remove('char-jump');
+        callback();
+        char.innerHTML = getRandomEmoji();
+        const escapeX = Math.random() * (window.innerWidth - 100) + 50;
+        const escapeY = Math.random() * (window.innerHeight - 100) + 50;
+        char.style.left = `${escapeX}px`;
+        char.style.top = `${escapeY}px`;
+        isInterrupted = false;
+        startRandomRoaming();
+      }, 1200);
+    }
+
+    function createHearts(x, y) {
+      for (let i = 0; i < 6; i++) {
+        const h = document.createElement('div'); h.className = 'char-heart';
+        h.innerHTML = '❤️'; h.style.left = `${x}px`; h.style.top = `${y}px`;
+        h.style.setProperty('--mx', `${(Math.random()-0.5)*100}px`);
+        h.style.setProperty('--my', `${(Math.random()-0.5)*100}px`);
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 800);
+      }
+    }
+
+    // --- ALUR NAVIGASI BERSERTA DELAY ---
+    function startJourney() {
+      document.getElementById('bgMusic').play().catch(e => console.log("Audio playback blocked"));
+      document.getElementById('page1').classList.add('opacity-0');
+      
+      setTimeout(() => {
+        document.getElementById('page1').classList.add('hidden');
+        document.getElementById('page2').classList.remove('hidden');
+        
+        typeWriterChunk(letterText, () => {
+          const btn = document.getElementById('btn-next-2');
+          btn.classList.remove('opacity-0');
+        });
+      }, 1000);
+    }
+
+    function nextPage(from, to) {
+      document.getElementById(`page${from}`).classList.add('hidden');
+      const next = document.getElementById(`page${to}`);
+      next.classList.remove('hidden');
+      next.classList.add('animate-fade-in');
+
+      // Jeda 3 detik untuk tombol Slide 4
+      if (to === 4) {
+        setTimeout(() => {
+          const btnContainer = document.getElementById('btn-container-4');
+          btnContainer.classList.remove('opacity-0', 'pointer-events-none');
+        }, 3000);
+      }
+
+      // Jeda 3 detik untuk tombol Slide 5
+      if (to === 5) {
+        isInterrupted = true;
+        char.style.transition = 'all 1.5s ease-in-out';
+        char.style.left = '50%'; char.style.top = '10%';
+        char.innerHTML = '👑';
+
+        setTimeout(() => {
+          const btnContainer = document.getElementById('btn-container-5');
+          btnContainer.classList.remove('opacity-0', 'pointer-events-none');
+        }, 3000);
+      }
+    }
+
+    startRandomRoaming();
+  </script>
+</body>
+</html>
